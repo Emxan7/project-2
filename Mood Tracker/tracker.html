@@ -1,0 +1,107 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker</title>
+    <link rel="stylesheet" href="mental.css">
+</head>
+<body>
+
+    <header>
+        <h1>Mood Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href ="Home.html"> Home </a></li>
+                <li><a href ="checkin.html"> Daily Check-In </a></li>
+                <li><a href ="tracker.html"> Mood Tracker </a></li>
+                <li><a href ="insights.html"> Insights </a></li>
+                <li><a href ="contactus.html"> Contact Us </a></li>
+                <li><a href ="registeration.html"> Registration </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div>
+            <h2>Your Mood Over the Month</h2>
+            <canvas id="moodChart"></canvas>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Fetch stored check-ins from localStorage
+        const checkins = JSON.parse(localStorage.getItem("checkins")) || [];
+
+        // If no check-ins are available, show a message
+        if (checkins.length === 0) {
+            alert("No check-in data available! Please check in first.");
+        }
+
+        // Create arrays to store mood and date values for the chart
+        const moodData = [];
+        const checkinDates = [];
+
+        checkins.forEach(checkin => {
+            // Convert mood to numeric values for charting (e.g., happy = 4, sad = 1, etc.)
+            const moodValue = {
+                happy: 4,
+                sad: 1,
+                anxious: 2,
+                calm: 3
+            }[checkin.mood] || 0;
+
+            moodData.push(moodValue);
+            checkinDates.push(checkin.date);
+        });
+
+        // Set up the mood chart
+        const ctx = document.getElementById('moodChart').getContext('2d');
+        const moodChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: checkinDates,
+                datasets: [{
+                    label: 'Mood (1-4)',
+                    data: moodData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            // Display moods as labels instead of numbers
+                            callback: function(value) {
+                                const moodLabels = ["", "Sad", "Anxious", "Calm", "Happy"];
+                                return moodLabels[value];
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Mood Progression Over Time'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Interactive Mental Health Check-In</p>
+    </footer><br><br><br><br>
+
+</body>
+</html>

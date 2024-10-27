@@ -1,0 +1,94 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Check-In</title>
+    <link rel="stylesheet" href="mental.css">
+</head>
+<body>
+    <header>
+        <h1>Daily Check-In</h1>
+        <nav>
+            <ul>
+                <li><a href ="Home.html"> Home </a></li>
+                <li><a href ="checkin.html"> Daily Check-In </a></li>
+                <li><a href ="tracker.html"> Mood Tracker </a></li>
+                <li><a href ="insights.html"> Insights </a></li>
+                <li><a href ="contactus.html"> Contact Us </a></li>
+                <li><a href ="registeration.html"> Registration </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form id="checkinForm" onsubmit="submitCheckIn(); return false;">
+            <!-- Mood selection -->
+            <label for="mood">Mood:</label>
+            <select id="mood" name="mood">
+                <option value="">Select</option>
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="anxious">Anxious</option>
+                <option value="calm">Calm</option>
+                <option value="neutral">neutral</option>
+            </select>
+
+            <!-- Stress level input -->
+            <label for="stress">Stress Level (0 - 10):</label>
+            <input type="number" id="stress" name="stress" min="0" max="10">
+
+            <!-- Sleep quality input -->
+            <label for="sleep">Sleep Quality (0 - 10):</label>
+            <input type="number" id="sleep" name="sleep" min="0" max="10">
+
+            <!-- Activity level selection -->
+            <label for="activity">How Active Were You Today?</label>
+            <select id="activity" name="activity">
+                <option value="">Select</option>
+                <option value="low">Low</option>
+                <option value="moderate">Moderate</option>
+                <option value="high">High</option>
+            </select>
+
+            <!-- Submit button -->
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Interactive Mental Health Check-In</p>
+    </footer>
+
+    <script>
+        function submitCheckIn() {
+            const mood = document.getElementById("mood").value;
+            const stress = document.getElementById("stress").value;
+            const sleep = document.getElementById("sleep").value;
+            const activity = document.getElementById("activity").value;
+
+            if (!mood || !stress || !sleep || !activity) {
+                alert("All fields must be filled out");
+                return false;
+            }
+
+            // Get existing check-ins from localStorage or initialize a new array
+            const checkins = JSON.parse(localStorage.getItem("checkins")) || [];
+
+            // Add new check-in to the array
+            checkins.push({
+                mood,
+                stress,
+                sleep,
+                activity,
+                date: new Date().toLocaleDateString()
+            });
+
+            // Store updated check-ins array in localStorage
+            localStorage.setItem("checkins", JSON.stringify(checkins));
+
+            alert("Your check-in has been submitted!");
+            return true;
+        }
+    </script>
+</body>
+</html>

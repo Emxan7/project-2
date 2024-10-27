@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset ="UTF-8">
+    <meta name ="viewport" content ="width=device-width, initial-scale = 1.0">
+    
+    <title> Contact Us </title>
+    <link rel ="stylesheet" href ="mental.css">
+</head>
+<body>
+    <header>
+        <h1> Contact Us </h1>
+        <nav>
+            <ul>
+                <li><a href ="Home.html"> Home </a></li>
+                <li><a href ="checkin.html"> Daily Check-In </a></li>
+                <li><a href ="tracker.html"> Mood Tracker </a></li>
+                <li><a href ="insights.html"> Insights </a></li>
+                <li><a href ="contactus.html"> Contact Us </a></li>
+                <li><a href ="registeration.html"> Registration </a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id ="contactForm" onsubmit ="return validateContactForm()">
+            <label for ="name"> Name: </label>
+            <input type ="text" id ="name" name ="name">
+            <label for ="email"> Email: </label>
+            <input type ="email" id ="email" name ="email">
+            <label for ="message"> Message: </label>
+            <textarea id ="message" name ="message"></textarea>
+            <button type ="submit"> Submit </button>
+        </form>
+    </main>
+
+    <script>
+        function validateContactForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            if (name === "" || email === "" || message === "") {
+                alert("All fields must be filled out");
+                return false;
+            }
+
+            showSuccessMessage();
+            return false; 
+        }
+
+        function showSuccessMessage() {
+            const successMessage = document.createElement('div');
+            successMessage.id = 'successMessage';
+            successMessage.innerText = 'Your message has been submitted successfully!';
+            document.body.insertBefore(successMessage, document.body.firstChild);
+            
+            setTimeout(() => {
+                successMessage.remove();
+            }, 11000);
+        }
+    </script><br><br><br><br>
+
+<footer>
+    <p>&copy; 2024 Interactive Mental Health Check-In </p>
+</footer>
+
+</body>
+</html>

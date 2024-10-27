@@ -1,0 +1,142 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="mental.css">
+</head>
+
+<body>
+    <header>
+        <h1>User Registration</h1>
+        <nav>
+            <ul>
+                <li><a href ="Home.html"> Home </a></li>
+                <li><a href ="checkin.html"> Daily Check-In </a></li>
+                <li><a href ="tracker.html"> Mood Tracker </a></li>
+                <li><a href ="insights.html"> Insights </a></li>
+                <li><a href ="contactus.html"> Contact Us </a></li>
+                <li><a href ="registeration.html"> Registration </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form id="registrationForm">
+            <table id="table1">
+                <tr>
+                    <td>First Name:</td>
+                    <td><input type="text" id="first" onkeyup="validateRegistration();" /></td>
+                    <td><div id="errFirst"></div></td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td><input type="text" id="last" onkeyup="validateRegistration();" /></td>
+                    <td><div id="errLast"></div></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" id="email" onkeyup="validateRegistration();" /></td>
+                    <td><div id="errEmail"></div></td>
+                </tr>
+                <tr>
+                    <td>User ID:</td>
+                    <td><input type="text" id="uid" onkeyup="validateRegistration();" /></td>
+                    <td><div id="errUid"></div></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" id="password" onkeyup="validateRegistration();" /></td>
+                    <td><div id="errPassword"></div></td>
+                </tr>
+                <tr>
+                    <td>Confirm Password:</td>
+                    <td><input type="password" id="confirm" onkeyup="validateRegistration();" /></td>
+                    <td><div id="errConfirm"></div></td>
+                </tr>
+                <tr>
+                    <td><input type="button" id="create" value="Create Account" /></td>
+                    <td><div id="errFinal"></div></td>
+                </tr>
+            </table>
+        </form>
+    </main>
+
+    <script>
+        // Array for error message divs
+        const divs = [
+            "errFirst",
+            "errLast",
+            "errEmail",
+            "errUid",
+            "errPassword",
+            "errConfirm"
+        ];
+
+        // Validate the registration form fields
+        function validateRegistration() {
+            const inputs = [
+                document.getElementById('first').value,
+                document.getElementById('last').value,
+                document.getElementById('email').value,
+                document.getElementById('uid').value,
+                document.getElementById('password').value,
+                document.getElementById('confirm').value
+            ];
+
+            const errors = [
+                "<span style='color:red'>Please enter your first name!</span>",
+                "<span style='color:red'>Please enter your last name!</span>",
+                "<span style='color:red'>Please enter your email!</span>",
+                "<span style='color:red'>Please enter your user ID!</span>",
+                "<span style='color:red'>Please enter your password!</span>",
+                "<span style='color:red'>Please confirm your password!</span>"
+            ];
+
+            for (let i = 0; i < inputs.length; i++) {
+                const errMessage = errors[i];
+                const div = divs[i];
+                if (inputs[i] === "") {
+                    document.getElementById(div).innerHTML = errMessage;
+                } else {
+                    document.getElementById(div).innerHTML = "OK!";
+                }
+
+                if (i === 2) { // Validate email
+                    const atpos = inputs[i].indexOf("@");
+                    const dotpos = inputs[i].lastIndexOf(".");
+                    if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= inputs[i].length) {
+                        document.getElementById('errEmail').innerHTML = "<span style='color: red'>Enter a valid email address!</span>";
+                    }
+                }
+
+                if (i === 5) { // Validate password confirmation
+                    const first = document.getElementById('password').value;
+                    const second = document.getElementById('confirm').value;
+                    if (second !== first) {
+                        document.getElementById('errConfirm').innerHTML = "<span style='color: red'>Your passwords don't match!</span>";
+                    }
+                }
+            }
+        }
+
+        // Final validation check
+        document.getElementById('create').addEventListener('click', () => {
+            validateRegistration();
+            let count = 0;
+            for (let i = 0; i < divs.length; i++) {
+                if (document.getElementById(divs[i]).innerHTML === "OK!") {
+                    count++;
+                }
+            }
+            if (count === divs.length) {
+                document.getElementById("errFinal").innerHTML = "All the data you entered is correct!!!";
+            }
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Interactive Mental Health Check-In</p>
+    </footer><br><br><br>
+</body>
+</html>

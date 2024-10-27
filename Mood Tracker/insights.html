@@ -1,0 +1,65 @@
+<html>
+<head>
+    <meta charset ="UTF-8">
+    <meta name ="viewport" content ="width = device-width, initial-scale = 1.0">
+    
+    <title> Insights </title>
+    <link rel ="stylesheet" href ="mental.css">
+</head>
+<body>
+
+    <header>
+        <h1> Insights </h1>
+        <nav>
+            <ul>
+                <li><a href ="Home.html"> Home </a></li>
+                <li><a href ="checkin.html"> Daily Check-In </a></li>
+                <li><a href ="tracker.html"> Mood Tracker </a></li>
+                <li><a href ="insights.html"> Insights </a></li>
+                <li><a href ="contactus.html"> Contact Us </a></li>
+                <li><a href ="registeration.html"> Registration </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2> Personalized Insights </h2>
+            <p> Based on your check-ins, here are some tips for you: </p>
+            <div id ="insights">
+                <p> Tip: Try to maintain a consistent sleep schedule. </p>
+            </div>
+        </section>
+    </main><br>
+
+    <img src ="images\360_F_325004507_Q6HbKyuzkiGJ6BtDkrkKCf2W2u0saMdq.jpg" alt ="2">
+
+    <script>
+        const insights = [
+
+          "Tip: Try to maintain a consistent sleep schedule.",
+          "Tip: Practice mindfulness to reduce stress.",
+          "Tip: Exercise regularly to improve your mood.",
+          "Tip: Stay connected with loved ones.",
+          "Tip: Maintain a balanced diet."
+        ]; 
+
+        const insightElement = document.getElementById('insights');
+        insightElement.innerHTML = `<span class ="tip">${insights[Math.floor(Math.random() * insights.length)]} </span>`;
+      </script> 
+      
+      <style>
+       .tip {
+          color: #0bc20b; 
+        }
+        .img {
+            text-align: left;
+        }
+      </style><br><br>
+    
+<footer>
+    <p>&copy; 2024 Interactive Mental Health Check-In</p>
+</footer><br><br><br><br>
+
+</body>
+</html>
